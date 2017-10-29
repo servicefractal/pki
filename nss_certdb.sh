@@ -4,7 +4,7 @@
 ## Note: certutil and pk12util are provided by libnss3-tools package on Linux.
 
 NSSCERT_DB_DIR=nss_cert_db
-NSS_DB_PWD_FILE=nssdb_passphrase.txt
+NSS_DB_PWD_FILE=./nssdb_passphrase.txt
 P12_PWD_FILE_CLIENT=client_p12_passphrase.txt
 P12_PWD_FILE_SERVER=server_p12_passphrase.txt
 P12_DIR=certificates
@@ -20,10 +20,13 @@ echo "Create a new certificate database ..."
 certutil -N -d $NSSCERT_DB_DIR -f $NSS_DB_PWD_FILE
 
 echo "Add PKCS 12 with Cert and private key to the database"
-pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/client/pkcs12/switch.example.com.p12 -w $P12_PWD_FILE_CLIENT
-pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/client/pkcs12/client.gnmi.example.com.p12 -w $P12_PWD_FILE_CLIENT
-pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/server/pkcs12/controller.example.com.p12 -w $P12_PWD_FILE_SERVER
-pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/server/pkcs12/target.gnmi.example.com.p12 -w $P12_PWD_FILE_SERVER
+pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/client/pkcs12/switch.example.com.p12 -w $P12_PWD_FILE_CLIENT -k $NSS_DB_PWD_FILE
+pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/client/pkcs12/client.gnmi.example.com.p12 -w $P12_PWD_FILE_CLIENT -k $NSS_DB_PWD_FILE
+pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/server/pkcs12/controller.example.com.p12 -w $P12_PWD_FILE_SERVER -k $NSS_DB_PWD_FILE
+pk12util -d $NSSCERT_DB_DIR -i $P12_DIR/server/pkcs12/target.gnmi.example.com.p12 -w $P12_PWD_FILE_SERVER -k $NSS_DB_PWD_FILE
 
 echo "List all certificates in a database ..."
 certutil -L -d $NSSCERT_DB_DIR
+
+echo "List all private keys in the database"
+certutil -K -d $NSSCERT_DB_DIR -f $NSS_DB_PWD_FILE
