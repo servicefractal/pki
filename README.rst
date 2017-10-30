@@ -3,7 +3,7 @@
   Shivaram Mysore (shivaram.mysore at gmail dot com)
 
 .. meta::
-   :keywords: PKI, PKCS12, Openflow, OVS, Switch, Certificates, gNMI
+   :keywords: PKI, PKCS11, PKCS12, Openflow, OVS, Switch, Certificates, gNMI
 
 
 ============
@@ -46,3 +46,30 @@ Clients need only this script and a list of p12 files with corresponding
 passwords so that they can import the same into their key database.
 Applications will be able to open the same key/cert database to resolve
 credentials.
+
+=======================================
+PKCS 11 based External Security Modules
+=======================================
+
+Public Key Cryptography Standard - PKCS #11 is a standard that defines modules
+that can store keys and certificates used for encryption and decryption.
+
+The use of NSS's ``certutil`` enables one to use PKCS #11 based hardware security
+modules (HSM) to store keys and certificates.  This means if one were to be
+running for example Open vSwitch (OVS) directly on hardware, and if OVS needs to
+be FIPS 140-2 certified, then they can just a load a Hardware Security Module to
+store keys.
+
+Installing PKCS#11 modules requires the NSS ``modutil`` tool.  Refer to the HSM
+manufacturer instructions for installing the module.  Normally, this would be as
+simple as running the below to install a nCipher HSM:
+
+``
+# modutil -dbdir . -nocertdb -add nethsm -libfile /opt/nfast/toolkits/pkcs11/libcknfast.so
+``
+
+To list loaded PKCS11 modules:
+
+``
+# modutil -list -dbdir .
+``
