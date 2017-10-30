@@ -64,12 +64,13 @@ Installing PKCS#11 modules requires the NSS ``modutil`` tool.  Refer to the HSM
 manufacturer instructions for installing the module.  Normally, this would be as
 simple as running the below to install a nCipher HSM:
 
-``
-# modutil -dbdir . -nocertdb -add nethsm -libfile /opt/nfast/toolkits/pkcs11/libcknfast.so
-``
+.. code:: bash
+
+  modutil -dbdir . -nocertdb -add nethsm -libfile /opt/nfast/toolkits/pkcs11/libcknfast.so
+
 
 To list loaded PKCS11 modules:
 
-``
-# modutil -list -dbdir .
-``
+.. code:: bash
+
+  modutil -list -dbdir .
