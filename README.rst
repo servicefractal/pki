@@ -18,18 +18,37 @@ PKI Services
 
 To build CA and Intermediate CA Certificates,
 
-``# make -f build_ca build_pki``
+.. code:: console
+
+   $ make -f build_ca build_pki
 
 To build only Client Keys, Certificates and PKCS12
 
-``# ./create_client_cert.sh``
+.. code:: console
+
+   $ ./create_client_cert.sh
 
 To build only Server Keys, Certificates and PKCS12
 
-``# ./create_server_cert.sh``
+.. code:: console
+
+    $ ./create_server_cert.sh
 
 There are ``clean`` targets available too.  Please review `build_ca.mk
 <build_ca.mk>`_ Makefile.
+
+For embedded systems such as a Network Switch, key pair is generated on the
+machine and a PEM encoded Certificate Signing Request (CSR) is generated for
+a subsequent signture by a Certificate Authority (CA).  The script ``sign_csr.sh``
+enables one to sign such a PEM encoded CSR file with the Intermediate CA.
+
+.. note::
+    filename argument provided to ``sign_csr.sh`` script should *not* include file extension (.pem)
+
+.. code:: console
+
+    $ ./sign_csr.sh provided_csr
+
 
 =========================
 PKI Key Store for Clients
@@ -66,11 +85,11 @@ simple as running the below to install a nCipher HSM:
 
 .. code:: bash
 
-  modutil -dbdir . -nocertdb -add nethsm -libfile /opt/nfast/toolkits/pkcs11/libcknfast.so
+  $ modutil -dbdir . -nocertdb -add nethsm -libfile /opt/nfast/toolkits/pkcs11/libcknfast.so
 
 
 To list loaded PKCS11 modules:
 
 .. code:: bash
 
-  modutil -list -dbdir .
+  $ modutil -list -dbdir .

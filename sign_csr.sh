@@ -3,7 +3,7 @@
 # (C) 2017 Shivaram Mysore.  All Rights Reserved
 
 # For embedded systems such as a Network Switch, key pair is generated on the
-# machine and a PEM encorded Certificate Signing Request (CSR) is generated for
+# machine and a PEM encoded Certificate Signing Request (CSR) is generated for
 # a subsequent sign by a Certificate Authority (CA).  This script enables one to
 # sign such a PEM encoded CSR file with the Intermediate CA.
 
