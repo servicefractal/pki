@@ -60,8 +60,8 @@ Certificate chains in a single location.  We use `Network Security Services's
 pk12util utilities provided as a part of libnss3-tools package on Linux platforms.
 
 Once all certificates and P12 files are created, run the script, `nss_certdb.sh
-<nss_certdb.sh>`_ - NSS Cert/Key database is created in nss_cert_db directory.
-Clients need only this script and a list of p12 files with corresponding
+<nss_certdb.sh>`_ - NSS Cert/Key database is created in ``nss_cert_db`` directory.
+Clients need only this script and a list of ``p12`` files with corresponding
 passwords so that they can import the same into their key database.
 Applications will be able to open the same key/cert database to resolve
 credentials.
